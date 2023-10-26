@@ -1,0 +1,60 @@
+//installation docker:
+//hyper-v must be activated
+//dans un CMD (as administartor) installer wsl avec la commande:
+wsl --install
+wsl --set-version Ubuntu-20.04 2
+
+//telecharger et installer "docker desktop" : https://www.docker.com/products/docker-desktop/
+//apres creation d'un compte docker sur leur site
+//dans un CMD, tapper:
+docker login --username user --password password
+
+
+
+
+
+//creation du projet laravel avec docker
+composer create-project laravel/laravel cosider_laravel_docker 
+cd cosider_laravel_docker
+//creation du projet laravel methode normale
+composer create-project laravel/laravel cosider_laravel
+cd cosider_laravel
+code .
+php artisan serve
+ctrl+c //arreter le serveur
+
+//installation du LiveWire
+composer require livewire/livewire
+
+//installation du Breeze 
+composer require laravel/breeze --dev
+
+//configuration du breeze (for LiveWire)
+php artisan breeze:install 
+php artisan migrate
+//lors de l'installation du Breeze, il install et configure Tailwind
+
+//dans le fichie welcome.blade.php, dans le <head></head>, sous le tag </style>
+//copier la ligne: @vite('resources/css/app.css')
+//Important!: il faut lancer le serveur npm, avec la commande:
+npm install
+npm run dev
+
+// n'oublier pas de lancer le serveur php:
+php artisan serve
+
+
+//pour créer un model:
+php artisan make:model Subscriber -mfc
+//m: migrate, f: factory, c: controller
+
+
+
+//pour migrer la base de donnée, avec un seed, fresh: drop toutes les tables
+php artisan migrate:fresh --seed 
+
+//pour consulter les données seeder dans une table
+php artisan tinker
+\App\Models\Subscriber::all();
+//pour seeder un subscriber a la fois a partir de la fonction factory
+\App\Models\Subscriber::factory()->create();
